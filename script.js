@@ -74,7 +74,7 @@ const yoKaiList = [
     { name: "Chip-Chope", img: "Bolsadron.png" },
     { name: "Hâtila", img: "Espaoi.png" },
     { name: "Amédélègue", img: "Hazlotu.png" },
-    { name: "Compre Zapzap", img: "Zappingla.png" },
+    { name: "Compte Zapzap", img: "Zappingla.png" },
     { name: "Raltesse", img: "Rataleza.png" },
     { name: "Snombéa", img: "Frivolia.png" },
     { name: "Triptyk", img: "Babamandra_A.png" },

@@ -281,26 +281,80 @@ function checkGameEnd() {
     }
 }
 
-// Mostrar la imagen de "¡Felicidades!" al finalizar el juego
 function showCongratsImage() {
-    const congratsImg = document.createElement("img");
-    congratsImg.src = "congrats .png";
-    congratsImg.id = "congrats-image";
-    congratsImg.style.position = "fixed";
-    congratsImg.style.bottom = "0";
-    congratsImg.style.left = "50%";
-    congratsImg.style.transform = "translateX(-50%)";
-    congratsImg.style.width = "100vw";
-    congratsImg.style.zIndex = "1000";
-    congratsImg.style.cursor = "pointer";
 
-    // Ocultar la imagen al hacer clic
-    congratsImg.addEventListener("click", () => {
-        congratsImg.remove();
+    // Detener temporizador
+    stopTimer();
+
+    // Obtener tiempo final mostrado
+    const tiempoTotal = document.getElementById("time").textContent;
+
+    // Sonido de victoria
+    const victorySound = new Audio("congrats.mp3");
+    victorySound.volume = 0.8;
+    victorySound.play().catch(() => {});
+
+    // Panel lateral
+    const finalPanel = document.createElement("div");
+    finalPanel.style.position = "fixed";
+    finalPanel.style.top = "0";
+    finalPanel.style.right = "-350px";
+    finalPanel.style.width = "320px";
+    finalPanel.style.height = "100%";
+    finalPanel.style.backgroundColor = "#0b2a4a";
+    finalPanel.style.color = "white";
+    finalPanel.style.padding = "20px";
+    finalPanel.style.boxSizing = "border-box";
+    finalPanel.style.zIndex = "1000";
+    finalPanel.style.fontFamily = "Arial, sans-serif";
+    finalPanel.style.display = "flex";
+    finalPanel.style.flexDirection = "column";
+    finalPanel.style.transition = "right 0.6s ease";
+
+    // Botón cerrar
+    const closeBtn = document.createElement("div");
+    closeBtn.textContent = "✖";
+    closeBtn.style.position = "absolute";
+    closeBtn.style.top = "15px";
+    closeBtn.style.right = "15px";
+    closeBtn.style.cursor = "pointer";
+    closeBtn.style.fontSize = "18px";
+
+    closeBtn.addEventListener("click", () => {
+        finalPanel.style.right = "-350px";
+        setTimeout(() => finalPanel.remove(), 600);
     });
 
-    document.body.appendChild(congratsImg);
+    // Título
+    const title = document.createElement("h2");
+    title.textContent = `Bravo ! Vous avez deviné tous les Yo-kai en ${tiempoTotal}`;
+    title.style.marginTop = "40px";
+    title.style.marginBottom = "30px";
+    title.style.fontSize = "22px";
+
+    // Texto Twitter
+    const followText = document.createElement("p");
+    followText.innerHTML = `
+        Si cela vous a plu, pourquoi ne pas me suivre sur Twitter ?: 
+        <a href="https://x.com/salty_baconV2" target="_blank" style="color:#4fc3ff; text-decoration:none;">
+        @Salty_BaconV2
+        </a>
+    `;
+    followText.style.fontSize = "16px";
+    followText.style.marginTop = "auto";
+
+    // Montaje
+    finalPanel.appendChild(closeBtn);
+    finalPanel.appendChild(title);
+    finalPanel.appendChild(followText);
+    document.body.appendChild(finalPanel);
+
+    // Animación de entrada
+    setTimeout(() => {
+        finalPanel.style.right = "0";
+    }, 50);
 }
+
 
 // Temporizador
 let startTime;
@@ -340,3 +394,4 @@ window.addEventListener("beforeunload", (event) => {
         event.returnValue = "¿Estás seguro de que quieres salir? Se perderá todo el progreso.";
     }
 });
+
